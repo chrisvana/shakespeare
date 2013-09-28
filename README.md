@@ -2,6 +2,7 @@ shakespeare
 ===========
 
 Example run:
+```
 $ bin/freq_compare shakespeare/works/*.txt shakespeare/others/*/*.txt
 CLUSTER
 shakespeare/others/bacon/the_essays.txt
@@ -51,3 +52,4 @@ shakespeare/works/twelfth_night.txt
 shakespeare/works/taming_shrew.txt
 shakespeare/works/lll.txt
 shakespeare/works/merry_wives.txt
+```
