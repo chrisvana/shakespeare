@@ -4,6 +4,7 @@
 #include <string>
 #include "common/log/log.h"
 #include "common/file/linereader.h"
+#include "common/strings/strutil.h"
 #include "shakespeare/file_tokenizer.h"
 #include "third_party/boost/boost/tokenizer.hpp"
 
@@ -24,8 +25,8 @@ bool FileTokenizer::ReadLine(Line* line) {
   }
   boost::tokenizer<> tokenize(reader_->line());
   for (const string& raw : tokenize) {
-    LG << raw;
-    line->AddWord(Word(raw));
+    // Will screw up on UTF8, but oh well.
+    line->AddWord(Word(strings::LowerString(raw)));
   }
   reader_->Next();
   return true;

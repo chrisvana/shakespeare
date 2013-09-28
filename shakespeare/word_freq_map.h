@@ -4,6 +4,8 @@
 #ifndef _SHAKESPEARE_WORD_FREQ_MAP_H__
 #define _SHAKESPEARE_WORD_FREQ_MAP_H__
 
+#include "common/log/log.h"
+
 #include <algorithm>
 #include <map>
 #include <string>

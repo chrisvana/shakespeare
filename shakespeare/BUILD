@@ -9,6 +9,7 @@
     "cc_sources": [ "file_tokenizer.cc" ],
     "dependencies": [ "//common/file:linereader",
                       "//common/log:log",
+                      "//common/strings:strutil",
                       "//third_party/boost:boost"
     ]
 } },
