@@ -293,6 +293,46 @@ common/file/fileutil: .gen-obj/common/file/fileutil.cc.o common/log/log common/a
 
 .PHONY: common/file/fileutil
 
+
+.gen-src/shakespeare: 
+	@mkdir -p .gen-src; [ -f shakespeare ] || mkdir -p shakespeare; ln -f -s ../shakespeare .gen-src/shakespeare
+
+
+.gen-src/shakespeare/.dummy: .gen-src/shakespeare
+	@[ -f .gen-src/shakespeare/.dummy ] || touch .gen-src/shakespeare/.dummy
+
+
+.gen-src/.gen-pkg/shakespeare: 
+	@mkdir -p .gen-src/.gen-pkg; [ -f .gen-pkg/shakespeare ] || mkdir -p .gen-pkg/shakespeare; ln -f -s ../../.gen-pkg/shakespeare .gen-src/.gen-pkg/shakespeare
+
+
+.gen-src/.gen-pkg/shakespeare/.dummy: .gen-src/.gen-pkg/shakespeare
+	@[ -f .gen-src/.gen-pkg/shakespeare/.dummy ] || touch .gen-src/.gen-pkg/shakespeare/.dummy
+
+
+.gen-src/.gen-files/shakespeare: 
+	@mkdir -p .gen-src/.gen-files; [ -f .gen-files/shakespeare ] || mkdir -p .gen-files/shakespeare; ln -f -s ../../.gen-files/shakespeare .gen-src/.gen-files/shakespeare
+
+
+.gen-src/.gen-files/shakespeare/.dummy: .gen-src/.gen-files/shakespeare
+	@[ -f .gen-src/.gen-files/shakespeare/.dummy ] || touch .gen-src/.gen-files/shakespeare/.dummy
+
+shakespeare/auto_.0: .gen-src/shakespeare .gen-src/.gen-pkg/shakespeare .gen-src/.gen-files/shakespeare
+
+.PHONY: shakespeare/auto_.0
+
+headers.shakespeare/clusterer := shakespeare/clusterer.h
+
+
+.gen-obj/shakespeare/clusterer.cc.o: .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/clusterer) shakespeare/clusterer.cc
+	@mkdir -p .gen-obj/shakespeare
+	@echo "Compiling:  shakespeare/clusterer.cc (c++)"
+	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files shakespeare/clusterer.cc -o .gen-obj/shakespeare/clusterer.cc.o
+
+shakespeare/clusterer: .gen-obj/shakespeare/clusterer.cc.o shakespeare/auto_.0
+
+.PHONY: shakespeare/clusterer
+
 headers.common/file/linereader := common/file/linereader.h
 
 
@@ -304,6 +344,87 @@ headers.common/file/linereader := common/file/linereader.h
 common/file/linereader: .gen-obj/common/file/linereader.cc.o common/log/log common/auto_.0
 
 .PHONY: common/file/linereader
+
+
+.gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy
+	@echo "Autoconf:   //common/third_party/stringencoders:stringencoders_conf.0"
+	@(mkdir -p .gen-files/common/third_party/stringencoders; cd common/third_party/stringencoders; GEN_DIR="../../../.gen-files/common/third_party/stringencoders" OBJ_DIR="../../../.gen-obj/common/third_party/stringencoders SRC_DIR="../../../.gen-src/common/third_party/stringencoders ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR; CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache )' > ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.0.logfile 2>&1 || (cat ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/stringencoders; touch .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy)
+
+common/third_party/stringencoders/stringencoders_conf.0: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy common/auto_.0
+
+.PHONY: common/third_party/stringencoders/stringencoders_conf.0
+
+
+.gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy
+	@echo "Make:       //common/third_party/stringencoders:stringencoders_conf.1.0"
+	@(mkdir -p .gen-files/common/third_party/stringencoders; cd common/third_party/stringencoders; GEN_DIR="../../../.gen-files/common/third_party/stringencoders" OBJ_DIR="../../../.gen-obj/common/third_party/stringencoders SRC_DIR="../../../.gen-src/common/third_party/stringencoders ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '($$MAKE install DESTDIR=$$(pwd)/$$GEN_DIR)' > ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.1.0.logfile 2>&1 || (cat ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.1.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/stringencoders; touch .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy)
+
+common/third_party/stringencoders/stringencoders_conf.1.0: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy common/third_party/stringencoders/stringencoders_conf.0 common/auto_.0
+
+.PHONY: common/third_party/stringencoders/stringencoders_conf.1.0
+
+
+.gen-files/common/third_party/stringencoders/lib/libmodpbase64.a: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy
+
+common/third_party/stringencoders/stringencoders_conf.1: common/third_party/stringencoders/stringencoders_conf.0 common/third_party/stringencoders/stringencoders_conf.1.0 common/auto_.0
+
+.PHONY: common/third_party/stringencoders/stringencoders_conf.1
+
+common/third_party/stringencoders/stringencoders_conf: common/third_party/stringencoders/stringencoders_conf.0 common/third_party/stringencoders/stringencoders_conf.1 common/auto_.0
+
+.PHONY: common/third_party/stringencoders/stringencoders_conf
+
+headers.common/third_party/stringencoders/stringencoders := common/third_party/stringencoders/src/arraytoc.h common/third_party/stringencoders/src/modp_ascii.h common/third_party/stringencoders/src/modp_b16.h common/third_party/stringencoders/src/modp_b2.h common/third_party/stringencoders/src/modp_b64.h common/third_party/stringencoders/src/modp_b64w.h common/third_party/stringencoders/src/modp_b85.h common/third_party/stringencoders/src/modp_bjavascript.h common/third_party/stringencoders/src/modp_burl.h common/third_party/stringencoders/src/modp_mainpage.h common/third_party/stringencoders/src/modp_numtoa.h
+
+common/third_party/stringencoders/stringencoders: common/third_party/stringencoders/stringencoders_conf common/auto_.0
+
+.PHONY: common/third_party/stringencoders/stringencoders
+
+headers.common/third_party/google/re2/re2 := common/third_party/google/re2/stringpiece.h
+
+
+.gen-obj/common/third_party/google/re2/stringpiece.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/re2/re2) common/third_party/google/re2/stringpiece.cc
+	@mkdir -p .gen-obj/common/third_party/google/re2
+	@echo "Compiling:  common/third_party/google/re2/stringpiece.cc (c++)"
+	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/third_party/google/re2/stringpiece.cc -o .gen-obj/common/third_party/google/re2/stringpiece.cc.o
+
+
+.gen-obj/common/third_party/google/re2/stringprintf.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/re2/re2) common/third_party/google/re2/stringprintf.cc
+	@mkdir -p .gen-obj/common/third_party/google/re2
+	@echo "Compiling:  common/third_party/google/re2/stringprintf.cc (c++)"
+	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/third_party/google/re2/stringprintf.cc -o .gen-obj/common/third_party/google/re2/stringprintf.cc.o
+
+common/third_party/google/re2/re2: .gen-obj/common/third_party/google/re2/stringpiece.cc.o .gen-obj/common/third_party/google/re2/stringprintf.cc.o common/auto_.0
+
+.PHONY: common/third_party/google/re2/re2
+
+common/strings/stringpiece: common/third_party/google/re2/re2 common/auto_.0
+
+.PHONY: common/strings/stringpiece
+
+headers.common/strings/strutil := common/strings/strutil.h common/strings/path.h common/strings/varmap.h
+
+
+.gen-obj/common/strings/strutil.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/strutil.cc
+	@mkdir -p .gen-obj/common/strings
+	@echo "Compiling:  common/strings/strutil.cc (c++)"
+	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/strings/strutil.cc -o .gen-obj/common/strings/strutil.cc.o
+
+
+.gen-obj/common/strings/path.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/path.cc
+	@mkdir -p .gen-obj/common/strings
+	@echo "Compiling:  common/strings/path.cc (c++)"
+	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/strings/path.cc -o .gen-obj/common/strings/path.cc.o
+
+
+.gen-obj/common/strings/varmap.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/varmap.cc
+	@mkdir -p .gen-obj/common/strings
+	@echo "Compiling:  common/strings/varmap.cc (c++)"
+	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/strings/varmap.cc -o .gen-obj/common/strings/varmap.cc.o
+
+common/strings/strutil: .gen-obj/common/strings/strutil.cc.o .gen-obj/common/strings/path.cc.o .gen-obj/common/strings/varmap.cc.o common/third_party/stringencoders/stringencoders common/strings/stringpiece common/auto_.0
+
+.PHONY: common/strings/strutil
 
 
 .gen-src/third_party: 
@@ -471,43 +592,15 @@ third_party/boost/boost: third_party/boost/boost_gen third_party/boost/boost_hea
 
 .PHONY: third_party/boost/boost
 
-
-.gen-src/shakespeare: 
-	@mkdir -p .gen-src; [ -f shakespeare ] || mkdir -p shakespeare; ln -f -s ../shakespeare .gen-src/shakespeare
-
-
-.gen-src/shakespeare/.dummy: .gen-src/shakespeare
-	@[ -f .gen-src/shakespeare/.dummy ] || touch .gen-src/shakespeare/.dummy
-
-
-.gen-src/.gen-pkg/shakespeare: 
-	@mkdir -p .gen-src/.gen-pkg; [ -f .gen-pkg/shakespeare ] || mkdir -p .gen-pkg/shakespeare; ln -f -s ../../.gen-pkg/shakespeare .gen-src/.gen-pkg/shakespeare
-
-
-.gen-src/.gen-pkg/shakespeare/.dummy: .gen-src/.gen-pkg/shakespeare
-	@[ -f .gen-src/.gen-pkg/shakespeare/.dummy ] || touch .gen-src/.gen-pkg/shakespeare/.dummy
-
-
-.gen-src/.gen-files/shakespeare: 
-	@mkdir -p .gen-src/.gen-files; [ -f .gen-files/shakespeare ] || mkdir -p .gen-files/shakespeare; ln -f -s ../../.gen-files/shakespeare .gen-src/.gen-files/shakespeare
-
-
-.gen-src/.gen-files/shakespeare/.dummy: .gen-src/.gen-files/shakespeare
-	@[ -f .gen-src/.gen-files/shakespeare/.dummy ] || touch .gen-src/.gen-files/shakespeare/.dummy
-
-shakespeare/auto_.0: .gen-src/shakespeare .gen-src/.gen-pkg/shakespeare .gen-src/.gen-files/shakespeare
-
-.PHONY: shakespeare/auto_.0
-
 headers.shakespeare/file_tokenizer := shakespeare/file_tokenizer.h
 
 
-.gen-obj/shakespeare/file_tokenizer.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/linereader) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/file_tokenizer) shakespeare/file_tokenizer.cc
+.gen-obj/shakespeare/file_tokenizer.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/linereader) .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/file_tokenizer) shakespeare/file_tokenizer.cc
 	@mkdir -p .gen-obj/shakespeare
 	@echo "Compiling:  shakespeare/file_tokenizer.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) shakespeare/file_tokenizer.cc -o .gen-obj/shakespeare/file_tokenizer.cc.o
 
-shakespeare/file_tokenizer: .gen-obj/shakespeare/file_tokenizer.cc.o common/file/linereader third_party/boost/boost shakespeare/auto_.0
+shakespeare/file_tokenizer: .gen-obj/shakespeare/file_tokenizer.cc.o common/file/linereader common/log/log common/strings/strutil third_party/boost/boost shakespeare/auto_.0
 
 .PHONY: shakespeare/file_tokenizer
 
@@ -537,17 +630,17 @@ shakespeare/freq_compare.0: shakespeare/auto_.0
 .PHONY: shakespeare/freq_compare.0
 
 
-.gen-obj/shakespeare/freq_compare.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy $(headers.common/third_party/google/gperftools/atomicops) $(headers.common/base/atomicops) $(headers.common/base/flags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/third_party/google/init/init) $(headers.common/base/init) $(headers.common/base/macros) $(headers.common/base/mutex) $(headers.common/base/time) $(headers.common/base/types) $(headers.common/file/fileutil) $(headers.common/file/linereader) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/file_tokenizer) $(headers.common/util/stl) $(headers.shakespeare/word_freq_map) shakespeare/freq_compare.cc
+.gen-obj/shakespeare/freq_compare.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy $(headers.common/third_party/google/gperftools/atomicops) $(headers.common/base/atomicops) $(headers.common/base/flags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/third_party/google/init/init) $(headers.common/base/init) $(headers.common/base/macros) $(headers.common/base/mutex) $(headers.common/base/time) $(headers.common/base/types) $(headers.common/file/fileutil) .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/clusterer) $(headers.common/file/linereader) .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy $(headers.shakespeare/file_tokenizer) $(headers.common/util/stl) $(headers.shakespeare/word_freq_map) shakespeare/freq_compare.cc
 	@mkdir -p .gen-obj/shakespeare
 	@echo "Compiling:  shakespeare/freq_compare.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src -Icommon/third_party/google/gperftools/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) shakespeare/freq_compare.cc -o .gen-obj/shakespeare/freq_compare.cc.o
 
 
-.gen-obj/shakespeare/freq_compare: .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/base/init.cc.o .gen-obj/common/base/time.cc.o .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a .gen-obj/common/file/fileutil.cc.o .gen-obj/common/file/linereader.cc.o .gen-files/third_party/boost/lib/libboost_atomic.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-obj/shakespeare/file_tokenizer.cc.o .gen-obj/shakespeare/freq_compare.cc.o
+.gen-obj/shakespeare/freq_compare: .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/base/init.cc.o .gen-obj/common/base/time.cc.o .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a .gen-obj/common/file/fileutil.cc.o .gen-obj/shakespeare/clusterer.cc.o .gen-obj/common/file/linereader.cc.o .gen-files/common/third_party/stringencoders/lib/libmodpbase64.a .gen-obj/common/third_party/google/re2/stringpiece.cc.o .gen-obj/common/third_party/google/re2/stringprintf.cc.o .gen-obj/common/strings/strutil.cc.o .gen-obj/common/strings/path.cc.o .gen-obj/common/strings/varmap.cc.o .gen-files/third_party/boost/lib/libboost_atomic.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-obj/shakespeare/file_tokenizer.cc.o .gen-obj/shakespeare/freq_compare.cc.o
 	@echo "Linking:    .gen-obj/shakespeare/freq_compare"
-	@$(LINK.cc)  .gen-obj/shakespeare/freq_compare.cc.o .gen-obj/shakespeare/file_tokenizer.cc.o .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_atomic.a .gen-obj/common/file/linereader.cc.o .gen-obj/common/file/fileutil.cc.o $(LD_FORCE_LINK_START) .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a $(LD_FORCE_LINK_END) .gen-obj/common/base/time.cc.o .gen-obj/common/base/init.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags.cc.o -o .gen-obj/shakespeare/freq_compare
+	@$(LINK.cc)  .gen-obj/shakespeare/freq_compare.cc.o .gen-obj/shakespeare/file_tokenizer.cc.o .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_atomic.a .gen-obj/common/strings/varmap.cc.o .gen-obj/common/strings/path.cc.o .gen-obj/common/strings/strutil.cc.o .gen-obj/common/third_party/google/re2/stringprintf.cc.o .gen-obj/common/third_party/google/re2/stringpiece.cc.o .gen-files/common/third_party/stringencoders/lib/libmodpbase64.a .gen-obj/common/file/linereader.cc.o .gen-obj/shakespeare/clusterer.cc.o .gen-obj/common/file/fileutil.cc.o $(LD_FORCE_LINK_START) .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a $(LD_FORCE_LINK_END) .gen-obj/common/base/time.cc.o .gen-obj/common/base/init.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags.cc.o -o .gen-obj/shakespeare/freq_compare
 
-shakespeare/freq_compare: common/base/base common/file/fileutil shakespeare/file_tokenizer shakespeare/word_freq_map shakespeare/freq_compare.0 shakespeare/auto_.0
+shakespeare/freq_compare: common/base/base common/file/fileutil shakespeare/clusterer shakespeare/file_tokenizer shakespeare/word_freq_map shakespeare/freq_compare.0 shakespeare/auto_.0
 
 .PHONY: shakespeare/freq_compare
 
@@ -558,6 +651,10 @@ clean:
 	@rm -rf .gen-src/.gen-pkg/common/.dummy
 	-@(mkdir -p .gen-files/common/third_party/google/gperftools; cd common/third_party/google/gperftools; GEN_DIR="../../../../.gen-files/common/third_party/google/gperftools" OBJ_DIR="../../../../.gen-obj/common/third_party/google/gperftools SRC_DIR="../../../../.gen-src/common/third_party/google/gperftools ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src"  eval '($$MAKE DESTDIR=$$(pwd)/$$GEN_DIR clean > /dev/null 2>&1 || echo -n "")' > ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.1.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.1.0.logfile; exit 1) )
 	-@(mkdir -p .gen-files/common/third_party/google/glog; cd common/third_party/google/glog; GEN_DIR="../../../../.gen-files/common/third_party/google/glog" OBJ_DIR="../../../../.gen-obj/common/third_party/google/glog SRC_DIR="../../../../.gen-src/common/third_party/google/glog ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src"  eval '($$MAKE DESTDIR=$$(pwd)/$$GEN_DIR clean > /dev/null 2>&1 || echo -n "")' > ../../../../.gen-files/common/third_party/google/glog/.glog_gen.1.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/glog/.glog_gen.1.0.logfile; exit 1) )
+	@rm -rf .gen-src/shakespeare/.dummy
+	@rm -rf .gen-src/.gen-files/shakespeare/.dummy
+	@rm -rf .gen-src/.gen-pkg/shakespeare/.dummy
+	-@(mkdir -p .gen-files/common/third_party/stringencoders; cd common/third_party/stringencoders; GEN_DIR="../../../.gen-files/common/third_party/stringencoders" OBJ_DIR="../../../.gen-obj/common/third_party/stringencoders SRC_DIR="../../../.gen-src/common/third_party/stringencoders ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)"  eval '($$MAKE DESTDIR=$$(pwd)/$$GEN_DIR clean > /dev/null 2>&1 || echo -n "")' > ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.1.0.logfile 2>&1 || (cat ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.1.0.logfile; exit 1) )
 	@rm -rf .gen-src/third_party/.dummy
 	@rm -rf .gen-src/.gen-files/third_party/.dummy
 	@rm -rf .gen-src/.gen-pkg/third_party/.dummy
@@ -565,9 +662,6 @@ clean:
 	@rm -rf .gen-src/.gen-files/boost/.dummy
 	@rm -rf .gen-src/.gen-pkg/boost/.dummy
 	-@(mkdir -p .gen-files/third_party/boost; cd third_party/boost; GEN_DIR="../../.gen-files/third_party/boost" OBJ_DIR="../../.gen-obj/third_party/boost SRC_DIR="../../.gen-src/third_party/boost ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" BOOST_INCLUDEDIR="third_party/boost" BOOST_LIBDIR=".gen-files/third_party/boost/lib" BOOST_ROOT=".gen-files/third_party/boost"  eval '(./b2 clean)' > ../../.gen-files/third_party/boost/.boost_gen.logfile 2>&1 || (cat ../../.gen-files/third_party/boost/.boost_gen.logfile; exit 1) )
-	@rm -rf .gen-src/shakespeare/.dummy
-	@rm -rf .gen-src/.gen-files/shakespeare/.dummy
-	@rm -rf .gen-src/.gen-pkg/shakespeare/.dummy
 	@[ -L freq_compare ] && rm -f freq_compare || true
 	@[ -L bin/freq_compare ] && rm -f bin/freq_compare || true
 	@rm -rf .gen-obj

@@ -12,6 +12,7 @@
 #include "common/base/flags.h"
 #include "common/file/fileutil.h"
 #include "common/log/log.h"
+#include "shakespeare/clusterer.h"
 #include "shakespeare/file_tokenizer.h"
 #include "shakespeare/word_freq_map.h"
 
@@ -120,75 +121,23 @@ int main(int argc, char** argv) {
     }
   }
 
-  map<string, vector<string> > clusters;
-  map<Pair, double, ComparePair> distance;
-
-  // Initial distance map
+  Clusterer clusterer;
   for (auto it : frequencies) {
     const string& primary = it.first;
     const WordFreqMap* freq = it.second;
-    clusters[primary].push_back(primary);
     for (auto it2 : frequencies) {
       const string& secondary = it2.first;
       if (secondary <= primary) { continue; }
       const WordFreqMap* freq2 = it2.second;
-      distance[Pair(primary, secondary)] = ComputeDist(*freq, *freq2);
+      clusterer.AddPair(primary, secondary, ComputeDist(*freq, *freq2));
     }
   }
 
-  // Clustering time (... note that this is not coded optimally ....)!
-  while (clusters.size() > FLAGS_num_clusters) {
-    // Figure out closest distance
-    double min_dist = 10000000;
-    Pair min_tuple;
-    for (auto it : distance) {
-      if (it.second < min_dist) {
-        min_dist = it.second;
-        min_tuple = it.first;
-      }
-    }
-    if (min_dist > FLAGS_max_cluster_merge) {
-      break;
-    }
-    LOG(INFO) << "MERGING: " << min_tuple.first << " " << min_tuple.second
-              << " (" << min_dist << ") ";
-
-    // Figure out new distances for everyone.
-    int first_size =  clusters[min_tuple.first].size();
-    int second_size = clusters[min_tuple.second].size();
-    set<Pair> to_erase;
-    for (auto& it : distance) {
-      if (it.first.first == min_tuple.first ||
-          it.first.second == min_tuple.first) {
-        const string& other = (it.first.first == min_tuple.first ?
-                               it.first.second : it.first.first);
-        double other_dist = distance[Pair(min_tuple.second, other)];
-        double distance = ((it.second * first_size +
-                            other_dist * second_size) /
-                           (first_size + second_size));
-        it.second = distance;
-      }
-      if (it.first.first == min_tuple.second ||
-          it.first.second == min_tuple.second) {
-        to_erase.insert(it.first);
-      }
-    }
-
-    // Erase everyone's connection to the dead cluster.
-    for (auto it : to_erase) {
-      distance.erase(it);
-    }
-
-    // Merge finally.
-    for (auto it : clusters[min_tuple.second]) {
-      clusters[min_tuple.first].push_back(it);
-    }
-    CHECK_EQ(1, clusters.erase(min_tuple.second));
-  }
-
+  vector<vector<string> > clusters;
+  clusterer.Cluster(FLAGS_num_clusters, FLAGS_max_cluster_merge, &clusters);
   for (auto it : clusters) {
     cout << "CLUSTER" << endl;
-    for (auto it2 : it.second) {
+    for (auto it2 : it) {
       cout << it2 << endl;
     }
   }

@@ -20,11 +20,18 @@
     "dependencies": [ "//common/util:stl" ]
 } },
 
+{ "cc_library": {
+    "name": "clusterer",
+    "cc_headers": [ "clusterer.h" ],
+    "cc_sources": [ "clusterer.cc" ]
+} },
+
 { "cc_binary": {
     "name": "freq_compare",
     "cc_sources": [ "freq_compare.cc" ],
     "dependencies": [ "//common/base:base",
                      "//common/file:fileutil",
+                      ":clusterer",
                       ":file_tokenizer",
                       ":word_freq_map"
     ]
