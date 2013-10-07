@@ -31,7 +31,7 @@ aW1wb3J0IG9zCmZyb20gc2V0dXB0b29scyBpbXBvcnQgc2V0dXAKCnNldHVwKAogICAgbmFtZSA9IG9z
 endef
 export PythonSetup
 
-.gen-pkg/base_setup.py: 
+.gen-pkg/base_setup.py: .gen-files/.dummy.prereqs
 	@echo "$$PythonSetup" | base64 --decode > .gen-pkg/base_setup.py
 	@chmod 0755 .gen-pkg/base_setup.py
 
@@ -40,32 +40,32 @@ IyEvYmluL2Jhc2gKSEVBREVSPSIkMSIKQ1BQPSIkMiIKR1VBUkQ9IiQzIgpOQU1FU1BBQ0VfU1RBUlQ9
 endef
 export CCEmbed
 
-.gen-files/cc_embed.sh: 
+.gen-files/cc_embed.sh: .gen-files/.dummy.prereqs
 	@echo "$$CCEmbed" | base64 --decode > .gen-files/cc_embed.sh
 	@chmod 0755 .gen-files/cc_embed.sh
 
 
-.gen-src/common: 
-	@mkdir -p .gen-src; [ -f common ] || mkdir -p common; ln -f -s ../common .gen-src/common
+.gen-src/common: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src; [ -d common ] || mkdir -p common; ln -f -s ../common .gen-src/common
 
 
-.gen-src/common/.dummy: .gen-src/common
+.gen-src/common/.dummy: .gen-src/common .gen-files/.dummy.prereqs
 	@[ -f .gen-src/common/.dummy ] || touch .gen-src/common/.dummy
 
 
-.gen-src/.gen-pkg/common: 
-	@mkdir -p .gen-src/.gen-pkg; [ -f .gen-pkg/common ] || mkdir -p .gen-pkg/common; ln -f -s ../../.gen-pkg/common .gen-src/.gen-pkg/common
+.gen-src/.gen-pkg/common: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-pkg; [ -d .gen-pkg/common ] || mkdir -p .gen-pkg/common; ln -f -s ../../.gen-pkg/common .gen-src/.gen-pkg/common
 
 
-.gen-src/.gen-pkg/common/.dummy: .gen-src/.gen-pkg/common
+.gen-src/.gen-pkg/common/.dummy: .gen-src/.gen-pkg/common .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-pkg/common/.dummy ] || touch .gen-src/.gen-pkg/common/.dummy
 
 
-.gen-src/.gen-files/common: 
-	@mkdir -p .gen-src/.gen-files; [ -f .gen-files/common ] || mkdir -p .gen-files/common; ln -f -s ../../.gen-files/common .gen-src/.gen-files/common
+.gen-src/.gen-files/common: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-files; [ -d .gen-files/common ] || mkdir -p .gen-files/common; ln -f -s ../../.gen-files/common .gen-src/.gen-files/common
 
 
-.gen-src/.gen-files/common/.dummy: .gen-src/.gen-files/common
+.gen-src/.gen-files/common/.dummy: .gen-src/.gen-files/common .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-files/common/.dummy ] || touch .gen-src/.gen-files/common/.dummy
 
 common/auto_.0: .gen-src/common .gen-src/.gen-pkg/common .gen-src/.gen-files/common
@@ -89,25 +89,25 @@ cxx_header_compile_args.common/third_party/google/gflags/gflags := -Icommon/thir
 headers.common/third_party/google/gflags/gflags := common/third_party/google/gflags/src/util.h common/third_party/google/gflags/src/google/gflags.h common/third_party/google/gflags/src/google/gflags_completions.h
 
 
-.gen-obj/common/third_party/google/gflags/src/gflags.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags.cc
+.gen-obj/common/third_party/google/gflags/src/gflags.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/third_party/google/gflags/src
 	@echo "Compiling:  common/third_party/google/gflags/src/gflags.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_header_compile_args.common/third_party/google/gflags/gflags) $(cxx_compile_args.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags.cc -o .gen-obj/common/third_party/google/gflags/src/gflags.cc.o
 
 
-.gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_completions.cc
+.gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_completions.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/third_party/google/gflags/src
 	@echo "Compiling:  common/third_party/google/gflags/src/gflags_completions.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_header_compile_args.common/third_party/google/gflags/gflags) $(cxx_compile_args.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_completions.cc -o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o
 
 
-.gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_nc.cc
+.gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_nc.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/third_party/google/gflags/src
 	@echo "Compiling:  common/third_party/google/gflags/src/gflags_nc.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_header_compile_args.common/third_party/google/gflags/gflags) $(cxx_compile_args.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_nc.cc -o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o
 
 
-.gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_reporting.cc
+.gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_reporting.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/third_party/google/gflags/src
 	@echo "Compiling:  common/third_party/google/gflags/src/gflags_reporting.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_header_compile_args.common/third_party/google/gflags/gflags) $(cxx_compile_args.common/third_party/google/gflags/gflags) common/third_party/google/gflags/src/gflags_reporting.cc -o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o
@@ -117,16 +117,16 @@ common/third_party/google/gflags/gflags: .gen-obj/common/third_party/google/gfla
 .PHONY: common/third_party/google/gflags/gflags
 
 
-.gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o
+.gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/.dummy.prereqs
 	@echo "Autoconf:   //common/third_party/google/gperftools:perf_gen.0"
-	@(mkdir -p .gen-files/common/third_party/google/gperftools; cd common/third_party/google/gperftools; GEN_DIR="../../../../.gen-files/common/third_party/google/gperftools" OBJ_DIR="../../../../.gen-obj/common/third_party/google/gperftools SRC_DIR="../../../../.gen-src/common/third_party/google/gperftools ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src" DEP_CXXFLAGS="$(cxx_header_compile_args.common/third_party/google/gflags/gflags)" DEP_CFLAGS="$(c_header_compile_args.common/third_party/google/gflags/gflags)" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR; USER_CXXFLAGS=-msse4; CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache --with-gflagssrc="$$ROOT_DIR/$$GFLAGS_SRC_ROOT" --with-gflagslib="$$ROOT_DIR/$$GFLAGS_OBJS")' > ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/google/gperftools; touch .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy)
+	@(mkdir -p .gen-files/common/third_party/google/gperftools; cd common/third_party/google/gperftools; GEN_DIR="../../../../.gen-files/common/third_party/google/gperftools" OBJ_DIR="../../../../.gen-obj/common/third_party/google/gperftools SRC_DIR="../../../../.gen-src/common/third_party/google/gperftools ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src" DEP_CXXFLAGS="$(cxx_header_compile_args.common/third_party/google/gflags/gflags)" DEP_CFLAGS="$(c_header_compile_args.common/third_party/google/gflags/gflags)" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR; $(CONFIGURE_ENV.common/third_party/google/gperftools/perf_gen) CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache $(CONFIGURE_ARGS.common/third_party/google/gperftools/perf_gen))' > ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/google/gperftools; touch .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy)
 
 common/third_party/google/gperftools/perf_gen.0: .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy common/third_party/google/gflags/gflags common/auto_.0
 
 .PHONY: common/third_party/google/gperftools/perf_gen.0
 
 
-.gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy: .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o
+.gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy: .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/.dummy.prereqs
 	@echo "Make:       //common/third_party/google/gperftools:perf_gen.1.0"
 	@(mkdir -p .gen-files/common/third_party/google/gperftools; cd common/third_party/google/gperftools; GEN_DIR="../../../../.gen-files/common/third_party/google/gperftools" OBJ_DIR="../../../../.gen-obj/common/third_party/google/gperftools SRC_DIR="../../../../.gen-src/common/third_party/google/gperftools ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src" DEP_CXXFLAGS="$(cxx_header_compile_args.common/third_party/google/gflags/gflags)" DEP_CFLAGS="$(c_header_compile_args.common/third_party/google/gflags/gflags)" eval '($$MAKE install DESTDIR=$$(pwd)/$$GEN_DIR)' > ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.1.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/gperftools/.perf_gen.1.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/google/gperftools; touch .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy)
 
@@ -135,26 +135,30 @@ common/third_party/google/gperftools/perf_gen.1.0: .gen-obj/common/third_party/g
 .PHONY: common/third_party/google/gperftools/perf_gen.1.0
 
 
-.gen-files/common/third_party/google/gperftools/lib/libprofiler.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy
+.gen-files/common/third_party/google/gperftools/lib/libprofiler.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy
+.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_minimal.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy
+.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_minimal.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/common/third_party/google/gperftools/lib/libtcmalloc.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy
+.gen-files/common/third_party/google/gperftools/lib/libtcmalloc.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_debug.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy
+.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_debug.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_minimal_debug.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy
+.gen-files/common/third_party/google/gperftools/lib/libtcmalloc_minimal_debug.a: .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 common/third_party/google/gperftools/perf_gen.1: common/third_party/google/gperftools/perf_gen.0 common/third_party/google/gflags/gflags common/third_party/google/gperftools/perf_gen.1.0 common/auto_.0
 
 .PHONY: common/third_party/google/gperftools/perf_gen.1
+
+CONFIGURE_ARGS.common/third_party/google/gperftools/perf_gen := --with-gflagssrc="$$ROOT_DIR/$$GFLAGS_SRC_ROOT" --with-gflagslib="$$ROOT_DIR/$$GFLAGS_OBJS"
+
+CONFIGURE_ENV.common/third_party/google/gperftools/perf_gen := USER_CXXFLAGS=-msse4
 
 common/third_party/google/gperftools/perf_gen: common/third_party/google/gflags/gflags common/third_party/google/gperftools/perf_gen.0 common/third_party/google/gperftools/perf_gen.1 common/auto_.0
 
@@ -179,16 +183,16 @@ common/base/flags: common/third_party/google/gflags/gflags common/auto_.0
 .PHONY: common/base/flags
 
 
-.gen-obj/common/third_party/google/glog/.glog_gen.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o
+.gen-obj/common/third_party/google/glog/.glog_gen.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/.dummy.prereqs
 	@echo "Autoconf:   //common/third_party/google/glog:glog_gen.0"
-	@(mkdir -p .gen-files/common/third_party/google/glog; cd common/third_party/google/glog; GEN_DIR="../../../../.gen-files/common/third_party/google/glog" OBJ_DIR="../../../../.gen-obj/common/third_party/google/glog SRC_DIR="../../../../.gen-src/common/third_party/google/glog ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src" DEP_CXXFLAGS="$(cxx_header_compile_args.common/third_party/google/gflags/gflags)" DEP_CFLAGS="$(c_header_compile_args.common/third_party/google/gflags/gflags)" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR; CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache --with-gflagssrc="$$ROOT_DIR/$$GFLAGS_SRC_ROOT" --with-gflagslib="$$ROOT_DIR/$$GFLAGS_OBJS")' > ../../../../.gen-files/common/third_party/google/glog/.glog_gen.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/glog/.glog_gen.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/google/glog; touch .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy)
+	@(mkdir -p .gen-files/common/third_party/google/glog; cd common/third_party/google/glog; GEN_DIR="../../../../.gen-files/common/third_party/google/glog" OBJ_DIR="../../../../.gen-obj/common/third_party/google/glog SRC_DIR="../../../../.gen-src/common/third_party/google/glog ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src" DEP_CXXFLAGS="$(cxx_header_compile_args.common/third_party/google/gflags/gflags)" DEP_CFLAGS="$(c_header_compile_args.common/third_party/google/gflags/gflags)" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR;  CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache $(CONFIGURE_ARGS.common/third_party/google/glog/glog_gen))' > ../../../../.gen-files/common/third_party/google/glog/.glog_gen.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/glog/.glog_gen.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/google/glog; touch .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy)
 
 common/third_party/google/glog/glog_gen.0: .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy common/third_party/google/gflags/gflags common/auto_.0
 
 .PHONY: common/third_party/google/glog/glog_gen.0
 
 
-.gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy: .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o
+.gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy: .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/.dummy.prereqs
 	@echo "Make:       //common/third_party/google/glog:glog_gen.1.0"
 	@(mkdir -p .gen-files/common/third_party/google/glog; cd common/third_party/google/glog; GEN_DIR="../../../../.gen-files/common/third_party/google/glog" OBJ_DIR="../../../../.gen-obj/common/third_party/google/glog SRC_DIR="../../../../.gen-src/common/third_party/google/glog ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" GFLAGS_OBJS=".gen-obj/common/third_party/google/gflags/src/*.o" GFLAGS_SRC_ROOT="common/third_party/google/gflags/src" DEP_CXXFLAGS="$(cxx_header_compile_args.common/third_party/google/gflags/gflags)" DEP_CFLAGS="$(c_header_compile_args.common/third_party/google/gflags/gflags)" eval '($$MAKE install DESTDIR=$$(pwd)/$$GEN_DIR)' > ../../../../.gen-files/common/third_party/google/glog/.glog_gen.1.0.logfile 2>&1 || (cat ../../../../.gen-files/common/third_party/google/glog/.glog_gen.1.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/google/glog; touch .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy)
 
@@ -197,11 +201,13 @@ common/third_party/google/glog/glog_gen.1.0: .gen-obj/common/third_party/google/
 .PHONY: common/third_party/google/glog/glog_gen.1.0
 
 
-.gen-files/common/third_party/google/glog/lib/libglog.a: .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy
+.gen-files/common/third_party/google/glog/lib/libglog.a: .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy .gen-files/.dummy.prereqs
 
 common/third_party/google/glog/glog_gen.1: common/third_party/google/glog/glog_gen.0 common/third_party/google/gflags/gflags common/third_party/google/glog/glog_gen.1.0 common/auto_.0
 
 .PHONY: common/third_party/google/glog/glog_gen.1
+
+CONFIGURE_ARGS.common/third_party/google/glog/glog_gen := --with-gflagssrc="$$ROOT_DIR/$$GFLAGS_SRC_ROOT" --with-gflagslib="$$ROOT_DIR/$$GFLAGS_OBJS"
 
 common/third_party/google/glog/glog_gen: common/third_party/google/gflags/gflags common/third_party/google/glog/glog_gen.0 common/third_party/google/glog/glog_gen.1 common/auto_.0
 
@@ -226,7 +232,7 @@ common/third_party/google/init/init: common/auto_.0
 headers.common/base/init := common/base/init.h
 
 
-.gen-obj/common/base/init.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/third_party/google/init/init) $(headers.common/base/flags) $(headers.common/base/init) common/base/init.cc
+.gen-obj/common/base/init.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/third_party/google/init/init) $(headers.common/base/flags) $(headers.common/base/init) common/base/init.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/base
 	@echo "Compiling:  common/base/init.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) common/base/init.cc -o .gen-obj/common/base/init.cc.o
@@ -250,7 +256,7 @@ common/base/mutex: common/auto_.0
 headers.common/base/time := common/base/time.h common/base/rdtsc.h
 
 
-.gen-obj/common/base/time.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/base/time) common/base/time.cc
+.gen-obj/common/base/time.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/base/time) common/base/time.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/base
 	@echo "Compiling:  common/base/time.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/base/time.cc -o .gen-obj/common/base/time.cc.o
@@ -284,7 +290,7 @@ common/base/base: common/base/base_nomalloc common/base/tcmalloc_perf common/aut
 headers.common/file/fileutil := common/file/fileutil.h
 
 
-.gen-obj/common/file/fileutil.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/fileutil) common/file/fileutil.cc
+.gen-obj/common/file/fileutil.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/fileutil) common/file/fileutil.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/file
 	@echo "Compiling:  common/file/fileutil.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) common/file/fileutil.cc -o .gen-obj/common/file/fileutil.cc.o
@@ -294,27 +300,27 @@ common/file/fileutil: .gen-obj/common/file/fileutil.cc.o common/log/log common/a
 .PHONY: common/file/fileutil
 
 
-.gen-src/shakespeare: 
-	@mkdir -p .gen-src; [ -f shakespeare ] || mkdir -p shakespeare; ln -f -s ../shakespeare .gen-src/shakespeare
+.gen-src/shakespeare: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src; [ -d shakespeare ] || mkdir -p shakespeare; ln -f -s ../shakespeare .gen-src/shakespeare
 
 
-.gen-src/shakespeare/.dummy: .gen-src/shakespeare
+.gen-src/shakespeare/.dummy: .gen-src/shakespeare .gen-files/.dummy.prereqs
 	@[ -f .gen-src/shakespeare/.dummy ] || touch .gen-src/shakespeare/.dummy
 
 
-.gen-src/.gen-pkg/shakespeare: 
-	@mkdir -p .gen-src/.gen-pkg; [ -f .gen-pkg/shakespeare ] || mkdir -p .gen-pkg/shakespeare; ln -f -s ../../.gen-pkg/shakespeare .gen-src/.gen-pkg/shakespeare
+.gen-src/.gen-pkg/shakespeare: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-pkg; [ -d .gen-pkg/shakespeare ] || mkdir -p .gen-pkg/shakespeare; ln -f -s ../../.gen-pkg/shakespeare .gen-src/.gen-pkg/shakespeare
 
 
-.gen-src/.gen-pkg/shakespeare/.dummy: .gen-src/.gen-pkg/shakespeare
+.gen-src/.gen-pkg/shakespeare/.dummy: .gen-src/.gen-pkg/shakespeare .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-pkg/shakespeare/.dummy ] || touch .gen-src/.gen-pkg/shakespeare/.dummy
 
 
-.gen-src/.gen-files/shakespeare: 
-	@mkdir -p .gen-src/.gen-files; [ -f .gen-files/shakespeare ] || mkdir -p .gen-files/shakespeare; ln -f -s ../../.gen-files/shakespeare .gen-src/.gen-files/shakespeare
+.gen-src/.gen-files/shakespeare: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-files; [ -d .gen-files/shakespeare ] || mkdir -p .gen-files/shakespeare; ln -f -s ../../.gen-files/shakespeare .gen-src/.gen-files/shakespeare
 
 
-.gen-src/.gen-files/shakespeare/.dummy: .gen-src/.gen-files/shakespeare
+.gen-src/.gen-files/shakespeare/.dummy: .gen-src/.gen-files/shakespeare .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-files/shakespeare/.dummy ] || touch .gen-src/.gen-files/shakespeare/.dummy
 
 shakespeare/auto_.0: .gen-src/shakespeare .gen-src/.gen-pkg/shakespeare .gen-src/.gen-files/shakespeare
@@ -324,7 +330,7 @@ shakespeare/auto_.0: .gen-src/shakespeare .gen-src/.gen-pkg/shakespeare .gen-src
 headers.shakespeare/clusterer := shakespeare/clusterer.h
 
 
-.gen-obj/shakespeare/clusterer.cc.o: .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/clusterer) shakespeare/clusterer.cc
+.gen-obj/shakespeare/clusterer.cc.o: .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/clusterer) shakespeare/clusterer.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/shakespeare
 	@echo "Compiling:  shakespeare/clusterer.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files shakespeare/clusterer.cc -o .gen-obj/shakespeare/clusterer.cc.o
@@ -336,7 +342,7 @@ shakespeare/clusterer: .gen-obj/shakespeare/clusterer.cc.o shakespeare/auto_.0
 headers.common/file/linereader := common/file/linereader.h
 
 
-.gen-obj/common/file/linereader.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/linereader) common/file/linereader.cc
+.gen-obj/common/file/linereader.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/linereader) common/file/linereader.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/file
 	@echo "Compiling:  common/file/linereader.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) common/file/linereader.cc -o .gen-obj/common/file/linereader.cc.o
@@ -346,16 +352,16 @@ common/file/linereader: .gen-obj/common/file/linereader.cc.o common/log/log comm
 .PHONY: common/file/linereader
 
 
-.gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy
+.gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy .gen-files/.dummy.prereqs
 	@echo "Autoconf:   //common/third_party/stringencoders:stringencoders_conf.0"
-	@(mkdir -p .gen-files/common/third_party/stringencoders; cd common/third_party/stringencoders; GEN_DIR="../../../.gen-files/common/third_party/stringencoders" OBJ_DIR="../../../.gen-obj/common/third_party/stringencoders SRC_DIR="../../../.gen-src/common/third_party/stringencoders ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR; CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache )' > ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.0.logfile 2>&1 || (cat ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/stringencoders; touch .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy)
+	@(mkdir -p .gen-files/common/third_party/stringencoders; cd common/third_party/stringencoders; GEN_DIR="../../../.gen-files/common/third_party/stringencoders" OBJ_DIR="../../../.gen-obj/common/third_party/stringencoders SRC_DIR="../../../.gen-src/common/third_party/stringencoders ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '(mkdir -p $$OBJ_DIR; DEST_DIR=$$(pwd)/$$GEN_DIR;  CXXFLAGS="$$BASIC_CXXFLAGS $$DEP_FLAGS $$USER_CXXFLAGS" CFLAGS="$$BASIC_CFLAGS $$DEP_FLAGS $$USER_CFLAGS" LDFLAGS="$$LDFLAGS $$USER_LDFLAGS" CC="$$CC" CXX="$$CXX" ./configure --prefix=/ --cache-file=$$GEN_DIR/config.cache )' > ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.0.logfile 2>&1 || (cat ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/stringencoders; touch .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy)
 
 common/third_party/stringencoders/stringencoders_conf.0: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy common/auto_.0
 
 .PHONY: common/third_party/stringencoders/stringencoders_conf.0
 
 
-.gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy
+.gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy .gen-files/.dummy.prereqs
 	@echo "Make:       //common/third_party/stringencoders:stringencoders_conf.1.0"
 	@(mkdir -p .gen-files/common/third_party/stringencoders; cd common/third_party/stringencoders; GEN_DIR="../../../.gen-files/common/third_party/stringencoders" OBJ_DIR="../../../.gen-obj/common/third_party/stringencoders SRC_DIR="../../../.gen-src/common/third_party/stringencoders ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '($$MAKE install DESTDIR=$$(pwd)/$$GEN_DIR)' > ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.1.0.logfile 2>&1 || (cat ../../../.gen-files/common/third_party/stringencoders/.stringencoders_conf.1.0.logfile; exit 1) ) && (mkdir -p .gen-obj/common/third_party/stringencoders; touch .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy)
 
@@ -364,7 +370,7 @@ common/third_party/stringencoders/stringencoders_conf.1.0: .gen-obj/common/third
 .PHONY: common/third_party/stringencoders/stringencoders_conf.1.0
 
 
-.gen-files/common/third_party/stringencoders/lib/libmodpbase64.a: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy
+.gen-files/common/third_party/stringencoders/lib/libmodpbase64.a: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-files/.dummy.prereqs
 
 common/third_party/stringencoders/stringencoders_conf.1: common/third_party/stringencoders/stringencoders_conf.0 common/third_party/stringencoders/stringencoders_conf.1.0 common/auto_.0
 
@@ -383,13 +389,13 @@ common/third_party/stringencoders/stringencoders: common/third_party/stringencod
 headers.common/third_party/google/re2/re2 := common/third_party/google/re2/stringpiece.h
 
 
-.gen-obj/common/third_party/google/re2/stringpiece.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/re2/re2) common/third_party/google/re2/stringpiece.cc
+.gen-obj/common/third_party/google/re2/stringpiece.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/re2/re2) common/third_party/google/re2/stringpiece.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/third_party/google/re2
 	@echo "Compiling:  common/third_party/google/re2/stringpiece.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/third_party/google/re2/stringpiece.cc -o .gen-obj/common/third_party/google/re2/stringpiece.cc.o
 
 
-.gen-obj/common/third_party/google/re2/stringprintf.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/re2/re2) common/third_party/google/re2/stringprintf.cc
+.gen-obj/common/third_party/google/re2/stringprintf.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/re2/re2) common/third_party/google/re2/stringprintf.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/third_party/google/re2
 	@echo "Compiling:  common/third_party/google/re2/stringprintf.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/third_party/google/re2/stringprintf.cc -o .gen-obj/common/third_party/google/re2/stringprintf.cc.o
@@ -405,19 +411,19 @@ common/strings/stringpiece: common/third_party/google/re2/re2 common/auto_.0
 headers.common/strings/strutil := common/strings/strutil.h common/strings/path.h common/strings/varmap.h
 
 
-.gen-obj/common/strings/strutil.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/strutil.cc
+.gen-obj/common/strings/strutil.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/strutil.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/strings
 	@echo "Compiling:  common/strings/strutil.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/strings/strutil.cc -o .gen-obj/common/strings/strutil.cc.o
 
 
-.gen-obj/common/strings/path.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/path.cc
+.gen-obj/common/strings/path.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/path.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/strings
 	@echo "Compiling:  common/strings/path.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/strings/path.cc -o .gen-obj/common/strings/path.cc.o
 
 
-.gen-obj/common/strings/varmap.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/varmap.cc
+.gen-obj/common/strings/varmap.cc.o: .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) common/strings/varmap.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/common/strings
 	@echo "Compiling:  common/strings/varmap.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files common/strings/varmap.cc -o .gen-obj/common/strings/varmap.cc.o
@@ -427,27 +433,27 @@ common/strings/strutil: .gen-obj/common/strings/strutil.cc.o .gen-obj/common/str
 .PHONY: common/strings/strutil
 
 
-.gen-src/third_party: 
-	@mkdir -p .gen-src; [ -f third_party ] || mkdir -p third_party; ln -f -s ../third_party .gen-src/third_party
+.gen-src/third_party: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src; [ -d third_party ] || mkdir -p third_party; ln -f -s ../third_party .gen-src/third_party
 
 
-.gen-src/third_party/.dummy: .gen-src/third_party
+.gen-src/third_party/.dummy: .gen-src/third_party .gen-files/.dummy.prereqs
 	@[ -f .gen-src/third_party/.dummy ] || touch .gen-src/third_party/.dummy
 
 
-.gen-src/.gen-pkg/third_party: 
-	@mkdir -p .gen-src/.gen-pkg; [ -f .gen-pkg/third_party ] || mkdir -p .gen-pkg/third_party; ln -f -s ../../.gen-pkg/third_party .gen-src/.gen-pkg/third_party
+.gen-src/.gen-pkg/third_party: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-pkg; [ -d .gen-pkg/third_party ] || mkdir -p .gen-pkg/third_party; ln -f -s ../../.gen-pkg/third_party .gen-src/.gen-pkg/third_party
 
 
-.gen-src/.gen-pkg/third_party/.dummy: .gen-src/.gen-pkg/third_party
+.gen-src/.gen-pkg/third_party/.dummy: .gen-src/.gen-pkg/third_party .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-pkg/third_party/.dummy ] || touch .gen-src/.gen-pkg/third_party/.dummy
 
 
-.gen-src/.gen-files/third_party: 
-	@mkdir -p .gen-src/.gen-files; [ -f .gen-files/third_party ] || mkdir -p .gen-files/third_party; ln -f -s ../../.gen-files/third_party .gen-src/.gen-files/third_party
+.gen-src/.gen-files/third_party: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-files; [ -d .gen-files/third_party ] || mkdir -p .gen-files/third_party; ln -f -s ../../.gen-files/third_party .gen-src/.gen-files/third_party
 
 
-.gen-src/.gen-files/third_party/.dummy: .gen-src/.gen-files/third_party
+.gen-src/.gen-files/third_party/.dummy: .gen-src/.gen-files/third_party .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-files/third_party/.dummy ] || touch .gen-src/.gen-files/third_party/.dummy
 
 third_party/auto_.0: .gen-src/third_party .gen-src/.gen-pkg/third_party .gen-src/.gen-files/third_party
@@ -455,27 +461,27 @@ third_party/auto_.0: .gen-src/third_party .gen-src/.gen-pkg/third_party .gen-src
 .PHONY: third_party/auto_.0
 
 
-.gen-src/boost: 
-	@mkdir -p .gen-src; [ -f third_party/boost/boost ] || mkdir -p third_party/boost/boost; ln -f -s ../third_party/boost/boost .gen-src/boost
+.gen-src/boost: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src; [ -d third_party/boost/boost ] || mkdir -p third_party/boost/boost; ln -f -s ../third_party/boost/boost .gen-src/boost
 
 
-.gen-src/boost/.dummy: .gen-src/boost
+.gen-src/boost/.dummy: .gen-src/boost .gen-files/.dummy.prereqs
 	@[ -f .gen-src/boost/.dummy ] || touch .gen-src/boost/.dummy
 
 
-.gen-src/.gen-pkg/boost: 
-	@mkdir -p .gen-src/.gen-pkg; [ -f .gen-pkg/third_party/boost/boost ] || mkdir -p .gen-pkg/third_party/boost/boost; ln -f -s ../../.gen-pkg/third_party/boost/boost .gen-src/.gen-pkg/boost
+.gen-src/.gen-pkg/boost: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-pkg; [ -d .gen-pkg/third_party/boost/boost ] || mkdir -p .gen-pkg/third_party/boost/boost; ln -f -s ../../.gen-pkg/third_party/boost/boost .gen-src/.gen-pkg/boost
 
 
-.gen-src/.gen-pkg/boost/.dummy: .gen-src/.gen-pkg/boost
+.gen-src/.gen-pkg/boost/.dummy: .gen-src/.gen-pkg/boost .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-pkg/boost/.dummy ] || touch .gen-src/.gen-pkg/boost/.dummy
 
 
-.gen-src/.gen-files/boost: 
-	@mkdir -p .gen-src/.gen-files; [ -f .gen-files/third_party/boost/boost ] || mkdir -p .gen-files/third_party/boost/boost; ln -f -s ../../.gen-files/third_party/boost/boost .gen-src/.gen-files/boost
+.gen-src/.gen-files/boost: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-files; [ -d .gen-files/third_party/boost/boost ] || mkdir -p .gen-files/third_party/boost/boost; ln -f -s ../../.gen-files/third_party/boost/boost .gen-src/.gen-files/boost
 
 
-.gen-src/.gen-files/boost/.dummy: .gen-src/.gen-files/boost
+.gen-src/.gen-files/boost/.dummy: .gen-src/.gen-files/boost .gen-files/.dummy.prereqs
 	@[ -f .gen-src/.gen-files/boost/.dummy ] || touch .gen-src/.gen-files/boost/.dummy
 
 third_party/boost/auto_.0: .gen-src/boost .gen-src/.gen-pkg/boost .gen-src/.gen-files/boost third_party/auto_.0
@@ -483,7 +489,7 @@ third_party/boost/auto_.0: .gen-src/boost .gen-src/.gen-pkg/boost .gen-src/.gen-
 .PHONY: third_party/boost/auto_.0
 
 
-.gen-obj/third_party/boost/.boost_gen.dummy: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy
+.gen-obj/third_party/boost/.boost_gen.dummy: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy .gen-files/.dummy.prereqs
 	@echo "Script:     //third_party/boost:boost_gen"
 	@(mkdir -p .gen-files/third_party/boost; cd third_party/boost; GEN_DIR="../../.gen-files/third_party/boost" OBJ_DIR="../../.gen-obj/third_party/boost SRC_DIR="../../.gen-src/third_party/boost ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" BOOST_INCLUDEDIR="third_party/boost" BOOST_LIBDIR=".gen-files/third_party/boost/lib" BOOST_ROOT=".gen-files/third_party/boost" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '(toolset="clang"; [ "$$CXX_GCC" = 1 ] && toolset=gcc; ./bootstrap.sh && ./b2 toolset="$$toolset" cflags="-O3 $$BASIC_CFLAGS" cxxflags="-O3 $$BASIC_CXXFLAGS" threading=multi linkflags="$$LDFLAGS" -j8 --stagedir="../../.gen-files/third_party/boost" && ([ ! -e ../../.gen-files/third_party/boost/include ] && ln -f -s $$(pwd) ../../.gen-files/third_party/boost/include || echo -n ''))' > ../../.gen-files/third_party/boost/.boost_gen.logfile 2>&1 || (cat ../../.gen-files/third_party/boost/.boost_gen.logfile; exit 1) ) && (mkdir -p .gen-obj/third_party/boost; touch .gen-obj/third_party/boost/.boost_gen.dummy)
 
@@ -492,97 +498,97 @@ third_party/boost/boost_gen: .gen-obj/third_party/boost/.boost_gen.dummy third_p
 .PHONY: third_party/boost/boost_gen
 
 
-.gen-files/third_party/boost/lib/libboost_atomic.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_atomic.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_chrono.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_chrono.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_context.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_context.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_coroutine.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_coroutine.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_date_time.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_date_time.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_exception.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_exception.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_filesystem.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_filesystem.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_graph.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_graph.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_iostreams.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_iostreams.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_log.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_log.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_log_setup.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_log_setup.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_math_c99.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_math_c99.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_math_c99f.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_math_c99f.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_math_c99l.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_math_c99l.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_math_tr1.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_math_tr1.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_math_tr1f.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_math_tr1f.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_math_tr1l.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_math_tr1l.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_program_options.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_program_options.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_python.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_python.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_random.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_random.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_regex.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_regex.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_serialization.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_serialization.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_signals.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_signals.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_system.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_system.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_test_exec_monitor.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_test_exec_monitor.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_thread.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_thread.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_timer.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_timer.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_unit_test_framework.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_unit_test_framework.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_wave.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_wave.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 
-.gen-files/third_party/boost/lib/libboost_wserialization.a: .gen-obj/third_party/boost/.boost_gen.dummy
+.gen-files/third_party/boost/lib/libboost_wserialization.a: .gen-obj/third_party/boost/.boost_gen.dummy .gen-files/.dummy.prereqs
 
 third_party/boost/boost_headers: third_party/boost/auto_.0 third_party/auto_.0
 
@@ -595,7 +601,7 @@ third_party/boost/boost: third_party/boost/boost_gen third_party/boost/boost_hea
 headers.shakespeare/file_tokenizer := shakespeare/file_tokenizer.h
 
 
-.gen-obj/shakespeare/file_tokenizer.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/linereader) .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/file_tokenizer) shakespeare/file_tokenizer.cc
+.gen-obj/shakespeare/file_tokenizer.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/file/linereader) .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/file_tokenizer) shakespeare/file_tokenizer.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/shakespeare
 	@echo "Compiling:  shakespeare/file_tokenizer.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) shakespeare/file_tokenizer.cc -o .gen-obj/shakespeare/file_tokenizer.cc.o
@@ -617,11 +623,11 @@ shakespeare/word_freq_map: common/util/stl shakespeare/auto_.0
 .PHONY: shakespeare/word_freq_map
 
 
-freq_compare: .gen-obj/shakespeare/freq_compare
+freq_compare: .gen-obj/shakespeare/freq_compare .gen-files/.dummy.prereqs
 	@ln -f -s .gen-obj/shakespeare/freq_compare freq_compare
 
 
-bin/freq_compare: .gen-obj/shakespeare/freq_compare
+bin/freq_compare: .gen-obj/shakespeare/freq_compare .gen-files/.dummy.prereqs
 	@mkdir -p bin
 	@ln -f -s ../.gen-obj/shakespeare/freq_compare bin/freq_compare
 
@@ -630,13 +636,13 @@ shakespeare/freq_compare.0: shakespeare/auto_.0
 .PHONY: shakespeare/freq_compare.0
 
 
-.gen-obj/shakespeare/freq_compare.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy $(headers.common/third_party/google/gperftools/atomicops) $(headers.common/base/atomicops) $(headers.common/base/flags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/third_party/google/init/init) $(headers.common/base/init) $(headers.common/base/macros) $(headers.common/base/mutex) $(headers.common/base/time) $(headers.common/base/types) $(headers.common/file/fileutil) .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/clusterer) $(headers.common/file/linereader) .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy $(headers.shakespeare/file_tokenizer) $(headers.common/util/stl) $(headers.shakespeare/word_freq_map) shakespeare/freq_compare.cc
+.gen-obj/shakespeare/freq_compare.cc.o: .gen-src/common/.dummy .gen-src/.gen-files/common/.dummy .gen-src/.gen-pkg/common/.dummy $(headers.common/third_party/google/gflags/gflags) .gen-obj/common/third_party/google/gperftools/.perf_gen.0.dummy .gen-obj/common/third_party/google/gperftools/.perf_gen.1.0.dummy $(headers.common/third_party/google/gperftools/atomicops) $(headers.common/base/atomicops) $(headers.common/base/flags) .gen-obj/common/third_party/google/glog/.glog_gen.0.dummy .gen-obj/common/third_party/google/glog/.glog_gen.1.0.dummy $(headers.common/log/log) $(headers.common/third_party/google/init/init) $(headers.common/base/init) $(headers.common/base/macros) $(headers.common/base/mutex) $(headers.common/base/time) $(headers.common/base/types) $(headers.common/file/fileutil) .gen-src/shakespeare/.dummy .gen-src/.gen-files/shakespeare/.dummy .gen-src/.gen-pkg/shakespeare/.dummy $(headers.shakespeare/clusterer) $(headers.common/file/linereader) .gen-obj/common/third_party/stringencoders/.stringencoders_conf.0.dummy .gen-obj/common/third_party/stringencoders/.stringencoders_conf.1.0.dummy $(headers.common/third_party/stringencoders/stringencoders) $(headers.common/third_party/google/re2/re2) $(headers.common/strings/strutil) .gen-obj/third_party/boost/.boost_gen.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/boost/.dummy .gen-src/.gen-files/boost/.dummy .gen-src/.gen-pkg/boost/.dummy $(headers.shakespeare/file_tokenizer) $(headers.common/util/stl) $(headers.shakespeare/word_freq_map) shakespeare/freq_compare.cc .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/shakespeare
 	@echo "Compiling:  shakespeare/freq_compare.cc (c++)"
 	@$(COMPILE.cc) -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files -Icommon/third_party/google/glog/src -Icommon/third_party/google/gperftools/src $(cxx_header_compile_args.common/third_party/google/gflags/gflags) shakespeare/freq_compare.cc -o .gen-obj/shakespeare/freq_compare.cc.o
 
 
-.gen-obj/shakespeare/freq_compare: .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/base/init.cc.o .gen-obj/common/base/time.cc.o .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a .gen-obj/common/file/fileutil.cc.o .gen-obj/shakespeare/clusterer.cc.o .gen-obj/common/file/linereader.cc.o .gen-files/common/third_party/stringencoders/lib/libmodpbase64.a .gen-obj/common/third_party/google/re2/stringpiece.cc.o .gen-obj/common/third_party/google/re2/stringprintf.cc.o .gen-obj/common/strings/strutil.cc.o .gen-obj/common/strings/path.cc.o .gen-obj/common/strings/varmap.cc.o .gen-files/third_party/boost/lib/libboost_atomic.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-obj/shakespeare/file_tokenizer.cc.o .gen-obj/shakespeare/freq_compare.cc.o
+.gen-obj/shakespeare/freq_compare: .gen-obj/common/third_party/google/gflags/src/gflags.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/base/init.cc.o .gen-obj/common/base/time.cc.o .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a .gen-obj/common/file/fileutil.cc.o .gen-obj/shakespeare/clusterer.cc.o .gen-obj/common/file/linereader.cc.o .gen-files/common/third_party/stringencoders/lib/libmodpbase64.a .gen-obj/common/third_party/google/re2/stringpiece.cc.o .gen-obj/common/third_party/google/re2/stringprintf.cc.o .gen-obj/common/strings/strutil.cc.o .gen-obj/common/strings/path.cc.o .gen-obj/common/strings/varmap.cc.o .gen-files/third_party/boost/lib/libboost_atomic.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-obj/shakespeare/file_tokenizer.cc.o .gen-obj/shakespeare/freq_compare.cc.o .gen-files/.dummy.prereqs
 	@echo "Linking:    .gen-obj/shakespeare/freq_compare"
 	@$(LINK.cc)  .gen-obj/shakespeare/freq_compare.cc.o .gen-obj/shakespeare/file_tokenizer.cc.o .gen-files/third_party/boost/lib/libboost_wserialization.a .gen-files/third_party/boost/lib/libboost_wave.a .gen-files/third_party/boost/lib/libboost_unit_test_framework.a .gen-files/third_party/boost/lib/libboost_timer.a .gen-files/third_party/boost/lib/libboost_thread.a .gen-files/third_party/boost/lib/libboost_test_exec_monitor.a .gen-files/third_party/boost/lib/libboost_system.a .gen-files/third_party/boost/lib/libboost_signals.a .gen-files/third_party/boost/lib/libboost_serialization.a .gen-files/third_party/boost/lib/libboost_regex.a .gen-files/third_party/boost/lib/libboost_random.a .gen-files/third_party/boost/lib/libboost_python.a .gen-files/third_party/boost/lib/libboost_program_options.a .gen-files/third_party/boost/lib/libboost_prg_exec_monitor.a .gen-files/third_party/boost/lib/libboost_math_tr1l.a .gen-files/third_party/boost/lib/libboost_math_tr1f.a .gen-files/third_party/boost/lib/libboost_math_tr1.a .gen-files/third_party/boost/lib/libboost_math_c99l.a .gen-files/third_party/boost/lib/libboost_math_c99f.a .gen-files/third_party/boost/lib/libboost_math_c99.a .gen-files/third_party/boost/lib/libboost_log_setup.a .gen-files/third_party/boost/lib/libboost_log.a .gen-files/third_party/boost/lib/libboost_iostreams.a .gen-files/third_party/boost/lib/libboost_graph.a .gen-files/third_party/boost/lib/libboost_filesystem.a .gen-files/third_party/boost/lib/libboost_exception.a .gen-files/third_party/boost/lib/libboost_date_time.a .gen-files/third_party/boost/lib/libboost_coroutine.a .gen-files/third_party/boost/lib/libboost_context.a .gen-files/third_party/boost/lib/libboost_chrono.a .gen-files/third_party/boost/lib/libboost_atomic.a .gen-obj/common/strings/varmap.cc.o .gen-obj/common/strings/path.cc.o .gen-obj/common/strings/strutil.cc.o .gen-obj/common/third_party/google/re2/stringprintf.cc.o .gen-obj/common/third_party/google/re2/stringpiece.cc.o .gen-files/common/third_party/stringencoders/lib/libmodpbase64.a .gen-obj/common/file/linereader.cc.o .gen-obj/shakespeare/clusterer.cc.o .gen-obj/common/file/fileutil.cc.o $(LD_FORCE_LINK_START) .gen-files/common/third_party/google/gperftools/lib/libtcmalloc_and_profiler.a $(LD_FORCE_LINK_END) .gen-obj/common/base/time.cc.o .gen-obj/common/base/init.cc.o .gen-files/common/third_party/google/glog/lib/libglog.a .gen-obj/common/third_party/google/gflags/src/gflags_reporting.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_nc.cc.o .gen-obj/common/third_party/google/gflags/src/gflags_completions.cc.o .gen-obj/common/third_party/google/gflags/src/gflags.cc.o -o .gen-obj/shakespeare/freq_compare
 
@@ -645,7 +651,223 @@ shakespeare/freq_compare: common/base/base common/file/fileutil shakespeare/clus
 .PHONY: shakespeare/freq_compare
 
 
-clean: 
+.gen-files/common/.git_tree.dummy: 
+	@echo "Sourcing:   //common (git submodule)"
+	@[ -d common -a ! -f common/.git -a  -e .git ] && (cd .; git submodule update --init common || exit 1); true
+	@mkdir -p .gen-files/common
+	@touch .gen-files/common/.git_tree.dummy
+
+
+common/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/base/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/base/atomicops.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/callback.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/flags.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/flags.py: .gen-files/common/.git_tree.dummy
+
+
+common/base/init.cc: .gen-files/common/.git_tree.dummy
+
+
+common/base/init.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/macros.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/mutex.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/rdtsc.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/time.cc: .gen-files/common/.git_tree.dummy
+
+
+common/base/time.h: .gen-files/common/.git_tree.dummy
+
+
+common/base/types.h: .gen-files/common/.git_tree.dummy
+
+
+common/file/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/file/fileutil.cc: .gen-files/common/.git_tree.dummy
+
+
+common/file/fileutil.h: .gen-files/common/.git_tree.dummy
+
+
+common/file/linereader.cc: .gen-files/common/.git_tree.dummy
+
+
+common/file/linereader.h: .gen-files/common/.git_tree.dummy
+
+
+common/log/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/log/log.h: .gen-files/common/.git_tree.dummy
+
+
+common/strings/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/strings/path.cc: .gen-files/common/.git_tree.dummy
+
+
+common/strings/path.h: .gen-files/common/.git_tree.dummy
+
+
+common/strings/strutil.cc: .gen-files/common/.git_tree.dummy
+
+
+common/strings/strutil.h: .gen-files/common/.git_tree.dummy
+
+
+common/strings/varmap.cc: .gen-files/common/.git_tree.dummy
+
+
+common/strings/varmap.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/gflags.cc: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/gflags_completions.cc: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/gflags_nc.cc: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/gflags_reporting.cc: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/google/gflags.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/google/gflags_completions.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gflags/src/util.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/glog/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/glog/src: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gperftools/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gperftools/src: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/gperftools/src/base/atomicops.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/init/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/init/googleinit.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/re2/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/re2/stringpiece.cc: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/re2/stringpiece.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/google/re2/stringprintf.cc: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/arraytoc.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_ascii.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_b16.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_b2.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_b64.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_b64w.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_b85.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_bjavascript.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_burl.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_mainpage.h: .gen-files/common/.git_tree.dummy
+
+
+common/third_party/stringencoders/src/modp_numtoa.h: .gen-files/common/.git_tree.dummy
+
+
+common/util/BUILD: .gen-files/common/.git_tree.dummy
+
+
+common/util/stl.h: .gen-files/common/.git_tree.dummy
+
+
+.gen-files/third_party/.git_tree.dummy: 
+	@echo "Sourcing:   //third_party (git submodule)"
+	@[ -d third_party -a ! -f third_party/.git -a  -e .git ] && (cd .; git submodule update --init third_party || exit 1); true
+	@mkdir -p .gen-files/third_party
+	@touch .gen-files/third_party/.git_tree.dummy
+
+
+.gen-files/third_party/boost/.git_tree.dummy: .gen-files/third_party/.git_tree.dummy
+	@echo "Sourcing:   //third_party/boost (git submodule)"
+	@[ -d third_party/boost -a ! -f third_party/boost/.git -a  -e third_party/.git ] && (cd third_party; git submodule update --init boost || exit 1); true
+	@mkdir -p .gen-files/third_party/boost
+	@touch .gen-files/third_party/boost/.git_tree.dummy
+
+
+third_party/boost/BUILD: .gen-files/third_party/boost/.git_tree.dummy
+
+
+third_party/BUILD: .gen-files/third_party/.git_tree.dummy
+
+
+clean: .gen-files/.dummy.prereqs
 	@rm -rf .gen-src/common/.dummy
 	@rm -rf .gen-src/.gen-files/common/.dummy
 	@rm -rf .gen-src/.gen-pkg/common/.dummy
@@ -671,13 +893,17 @@ clean:
 	@rm -rf .gen-pkg
 
 
-all: freq_compare bin/freq_compare shakespeare/freq_compare
+all: freq_compare bin/freq_compare shakespeare/freq_compare .gen-files/.dummy.prereqs
 
 
-tests: 
-
+tests: .gen-files/.dummy.prereqs
 
 .PHONY: clean all tests
 
 .DEFAULT_GOAL=all
+
+
+.gen-files/.dummy.prereqs: .gen-files/common/.git_tree.dummy .gen-files/third_party/.git_tree.dummy .gen-files/third_party/boost/.git_tree.dummy common/BUILD common/base/BUILD common/base/atomicops.h common/base/callback.h common/base/flags.h common/base/flags.py common/base/init.cc common/base/init.h common/base/macros.h common/base/mutex.h common/base/rdtsc.h common/base/time.cc common/base/time.h common/base/types.h common/file/BUILD common/file/fileutil.cc common/file/fileutil.h common/file/linereader.cc common/file/linereader.h common/log/BUILD common/log/log.h common/strings/BUILD common/strings/path.cc common/strings/path.h common/strings/strutil.cc common/strings/strutil.h common/strings/varmap.cc common/strings/varmap.h common/third_party/BUILD common/third_party/google/BUILD common/third_party/google/gflags/BUILD common/third_party/google/gflags/src/gflags.cc common/third_party/google/gflags/src/gflags_completions.cc common/third_party/google/gflags/src/gflags_nc.cc common/third_party/google/gflags/src/gflags_reporting.cc common/third_party/google/gflags/src/google/gflags.h common/third_party/google/gflags/src/google/gflags_completions.h common/third_party/google/gflags/src/util.h common/third_party/google/glog/BUILD common/third_party/google/glog/src common/third_party/google/gperftools/BUILD common/third_party/google/gperftools/src common/third_party/google/gperftools/src/base/atomicops.h common/third_party/google/init/BUILD common/third_party/google/init/googleinit.h common/third_party/google/re2/BUILD common/third_party/google/re2/stringpiece.cc common/third_party/google/re2/stringpiece.h common/third_party/google/re2/stringprintf.cc common/third_party/stringencoders/BUILD common/third_party/stringencoders/src/arraytoc.h common/third_party/stringencoders/src/modp_ascii.h common/third_party/stringencoders/src/modp_b16.h common/third_party/stringencoders/src/modp_b2.h common/third_party/stringencoders/src/modp_b64.h common/third_party/stringencoders/src/modp_b64w.h common/third_party/stringencoders/src/modp_b85.h common/third_party/stringencoders/src/modp_bjavascript.h common/third_party/stringencoders/src/modp_burl.h common/third_party/stringencoders/src/modp_mainpage.h common/third_party/stringencoders/src/modp_numtoa.h common/util/BUILD common/util/stl.h third_party/BUILD third_party/boost/BUILD
+	@mkdir -p .gen-files
+	@touch .gen-files/.dummy.prereqs
 
