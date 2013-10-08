@@ -71,25 +71,6 @@ double ComputeDist(const WordFreqMap& freq_map1,
 
 }  // anonymous namespace
 
-struct Pair {
-  Pair() {}
-  Pair(const string& f, const string& s) : first(f>s ? s : f),
-                                           second(f>s ? f : s) {}
-  string first, second;
-  bool operator==(const Pair& other) const {
-    return first == other.first && second == other.second;
-  }
-  bool operator<(const Pair& other) const {
-    return (first < other.first ||
-            (first == other.first && second < other.second));
-  }
-};
-struct ComparePair {
-  bool operator()(const Pair& a, const Pair& b) const {
-    return a < b;
-  }
-};
-
 int main(int argc, char** argv) {
   InitProgram(&argc, &argv);
 
