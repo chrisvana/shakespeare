@@ -3,7 +3,7 @@ shakespeare
 
 Example run:
 ```
-$ bin/freq_compare shakespeare/works/*.txt shakespeare/others/*/*.txt
+$ bin/freq_compare shakespeare/works/*/*.txt
 CLUSTER
 shakespeare/others/bacon/the_essays.txt
 shakespeare/others/bacon/the_new_atlantis.txt
