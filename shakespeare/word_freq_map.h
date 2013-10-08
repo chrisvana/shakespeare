@@ -4,8 +4,6 @@
 #ifndef _SHAKESPEARE_WORD_FREQ_MAP_H__
 #define _SHAKESPEARE_WORD_FREQ_MAP_H__
 
-#include "common/log/log.h"
-
 #include <algorithm>
 #include <map>
 #include <string>
@@ -35,6 +33,8 @@ class WordFreqMap {
     ++total_words_;
     counts_[word]++;
   }
+
+  double Distance(const WordFreqMap& other) const;
 
  private:
   int total_words_;

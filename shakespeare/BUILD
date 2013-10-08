@@ -17,7 +17,10 @@
 { "cc_library": {
     "name": "word_freq_map",
     "cc_headers": [ "word_freq_map.h" ],
-    "dependencies": [ "//common/util:stl" ]
+    "cc_sources": [ "word_freq_map.cc" ],
+    "dependencies": [ "//common/base:flags",
+                      "//common/util:stl"
+    ]
 } },
 
 { "cc_library": {
