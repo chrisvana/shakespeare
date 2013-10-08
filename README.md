@@ -1,19 +1,21 @@
 shakespeare
 ===========
+#### What is this?
+This binary takes a set of text files, and tries to cluster together works written by the same author (based on word frequency patterns).
 
-To Build:
+#### To Build:
 ```
 $ make -j8
 ```
 
-To Modify:
+#### To Modify:
 ```
 $ # ... update files ...
 $ repobuild "shakespeare:freq_compare"
 $ make -j8
 ```
 
-Example run:
+#### Example run:
 ```
 $ bin/freq_compare shakespeare/works/*/*.txt
 CLUSTER
