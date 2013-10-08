@@ -3,7 +3,7 @@ shakespeare
 #### What is this?
 This binary takes a set of text files, and tries to cluster together works written by the same author (based on word frequency patterns).
 
-For example, it shows that Sir Francis Bacon and Shakespeare had fairly different writting styles, evidence against:
+For example, it shows that Sir Francis Bacon and Shakespeare had fairly different writting styles: evidence against
 http://en.wikipedia.org/wiki/Baconian_theory_of_Shakespeare_authorship
 
 #### To Build:
