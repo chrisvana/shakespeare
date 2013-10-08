@@ -1,6 +1,18 @@
 shakespeare
 ===========
 
+To Build:
+```
+$ make -j8
+```
+
+To Modify:
+```
+$ # ... update files ...
+$ repobuild "shakespeare:freq_compare"
+$ make -j8
+```
+
 Example run:
 ```
 $ bin/freq_compare shakespeare/works/*/*.txt
